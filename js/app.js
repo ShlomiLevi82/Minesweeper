@@ -3,20 +3,21 @@
 const MINE = '💣';
 let gTimer;
 let gBoard;
-let gLevel;
+
 let gGame;
 let gTimerIntervalId;
 let gMines;
 let gLives;
+let gLevel = {
+  SIZE: 4,
+  MINES: 2,
+};
 
 function onInit() {
   gTimer = 0;
   gTimerIntervalId = null;
   gLives = 3;
-  gLevel = {
-    SIZE: 4,
-    MINES: 2,
-  };
+
   gMines = gLevel.MINES;
   gGame = {
     isOn: false,
@@ -103,7 +104,6 @@ function onCellClicked(i, j, elCell) {
   if (gBoard[i][j].isMine && !gGame.isOn) {
     gBoard[i][j].isMine = false;
     gBoard[i][j].isShown = true;
-    // renderBoard(gBoard);
   }
   if (gBoard[i][j].isMine && gGame.isOn) {
     elCell.style.backgroundColor = 'crimson';
@@ -112,7 +112,6 @@ function onCellClicked(i, j, elCell) {
     gLives--;
     gMines--;
     document.querySelector('.lives span').innerText = gLives;
-    checkGameOver();
   }
   if (!gBoard[i][j].isMine && !gBoard[i][j].isMarked) {
     gBoard[i][j].minesAroundCount = setMinesNegsCount(gBoard, i, j);
@@ -123,6 +122,7 @@ function onCellClicked(i, j, elCell) {
   }
   gGame.isOn = true;
   startTimer();
+  checkGameOver();
 }
 function expandShown(board, elCell, rowIdx, colIdx) {
   for (let i = rowIdx - 1; i <= rowIdx + 1; i++) {
@@ -167,6 +167,9 @@ function onCellMarked(event, elCell, i, j) {
 }
 
 function checkGameOver() {
+  if (gLives === 0) {
+    console.log('Game Over');
+  }
   clearInterval(gTimerIntervalId);
 }
 
@@ -181,4 +184,10 @@ function getRandomMineLocation(gLevel) {
 function onReset() {
   onInit();
   clearInterval(gTimerIntervalId);
+}
+
+function onLevel(size, mines) {
+  gLevel.SIZE = size;
+  gLevel.MINES = mines;
+  onInit();
 }
