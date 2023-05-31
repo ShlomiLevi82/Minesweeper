@@ -8,10 +8,10 @@ function getRandomInt(min, max) {
 }
 
 function renderTimer() {
-  let gElTimer = document.querySelector('.timer');
+  let elTimer = document.querySelector('.timer');
 
   let stopWatch = +gTimer.toFixed(2);
-  gElTimer.innerText = stopWatch;
+  elTimer.innerText = stopWatch;
 }
 
 function startTimer() {
