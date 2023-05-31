@@ -129,12 +129,10 @@ function expandShown(board, elCell, rowIdx, colIdx) {
     if (i < 0 || i > board.length - 1) continue;
     for (let j = colIdx - 1; j <= colIdx + 1; j++) {
       if (j < 0 || j > board[0].length - 1) continue;
-      if (i === rowIdx && j === colIdx) continue;
+      //if (i === rowIdx && j === colIdx) continue;
       let cell = gBoard[i][j];
-      if (!cell.isMine && !setMinesNegsCount(board, rowIdx, colIdx)) {
-        let pos = { i, j };
-        console.log('pos:', pos);
-        if (!cell.minesAroundCount) {
+      if (!cell.isMine && !setMinesNegsCount(board, rowIdx, colIdx)) {       
+        if (!cell.minesAroundCount && !setMinesNegsCount(board, rowIdx, colIdx))) {
           gBoard[i][j].isShown = true;
           elCell.classList.remove('.covered');
           renderBoard(board);
