@@ -1,0 +1,30 @@
+table {
+  margin: auto;
+}
+.menu {
+  background-color: aliceblue;
+}
+h1 {
+  text-align: center;
+}
+.board {
+  margin: auto;
+  text-align: center;
+}
+
+.cell {
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  border: 1px solid #000;
+  background-color: lightgray;
+}
+
+footer {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+  text-align: center;
+  padding: 3px;
+  background-color: rgb(79, 81, 88);
+  color: rgb(242, 244, 247);
+}
