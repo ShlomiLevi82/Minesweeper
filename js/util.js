@@ -7,16 +7,28 @@ function getRandomInt(min, max) {
   //The maximum is inclusive and the minimum is inclusive
 }
 
-function renderTimer() {
-  let elTimer = document.querySelector('.timer');
+//  <label id="minutes">00</label>:<label id="seconds">00</label>
 
-  let stopWatch = +gTimer.toFixed(2);
-  elTimer.innerText = stopWatch;
+let minutesLabel = document.getElementById('minutes');
+let secondsLabel = document.getElementById('seconds');
+let totalSeconds = 0;
+
+function setTime() {
+  ++totalSeconds;
+  secondsLabel.innerHTML = pad(totalSeconds % 60);
+  minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
 }
 
-function startTimer() {
-  gTimerIntervalId = setInterval(() => {
-    gTimer += 0.01;
-    renderTimer();
-  }, 10);
+function pad(val) {
+  let valString = val + '';
+  if (valString.length < 2) {
+    return '0' + valString;
+  } else {
+    return valString;
+  }
+}
+
+function getClassName(location) {
+  const cellClass = `cell-${location.i}-${location.j}`;
+  return cellClass;
 }

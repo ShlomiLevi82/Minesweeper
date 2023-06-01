@@ -41,9 +41,6 @@ h1 {
 .lives span {
   color: red;
 }
-.hints {
-  /* background-color: rgb(156, 199, 54); */
-}
 
 .hints:hover {
   cursor: pointer;
@@ -98,15 +95,24 @@ h1 {
   display: none;
   border: solid 3px grey;
   width: 400px;
-  height: 300px;
+  height: 400px;
   background-color: rgb(222, 226, 228);
   color: black;
   font-size: 32px;
 
   position: absolute;
-  top: 400px;
+  top: 370px;
   left: calc(50% - 200px);
   text-align: center;
+}
+.modal .reset {
+  position: absolute;
+  left: calc(50% - 60px);
+  border: none;
+  border-radius: 5px;
+  font-family: serif;
+  font-size: larger;
+  box-shadow: 4px 4px 4px 2px;
 }
 
 footer {

@@ -19,8 +19,10 @@
       </div>
       <div class="container">
         <div class="mines">Mines: <span> 0</span></div>
-        <div class="mines timer">0</div>
-        <div class="hints" onclick="onHint(this)">💡</div>
+        <div class="mines timer">
+          <label id="minutes">00</label>:<label id="seconds">00</label>
+        </div>
+        <div class="hints" onclick="onHint()">💡 <span>3</span></div>
       </div>
     </div>
     <table>
@@ -28,6 +30,7 @@
     </table>
     <div class="modal">
       <h2>Game Over</h2>
+      <button class="reset" onclick="onReset()">RESET</button>
     </div>
 
     <footer>
