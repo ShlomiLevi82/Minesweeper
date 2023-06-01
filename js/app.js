@@ -251,7 +251,7 @@ function onLevel(size, mines) {
 }
 
 function onHint() {
-  if (!gGame.isOn) return;
+  if (!gGame.isOn || gHints === 0) return;
 
   isHintRequested = true;
   let elHint = document.querySelector('.hints');
@@ -311,12 +311,12 @@ function showCell(i, j, value = 'covered') {
   // console.log('elCell', elCell);
 
   elCell.classList.remove(value);
+  elCell.innerText = gBoard[i][j].minesAroundCount;
   if (gBoard[i][j].isMine) {
     console.log('gBoard[i][j].isMine', gBoard[i][j].isMine);
     console.log('elCell', elCell);
-    elCell.innerHTML = '💣';
+    elCell.innerText = '💣';
   }
-  elCell.innerText = gBoard[i][j].minesAroundCount;
   setTimeout(hideCell, 1000, i, j);
 }
 
@@ -324,7 +324,9 @@ function hideCell(i, j, value = 'covered') {
   let location = { i: i, j: j };
   let cellClass = getClassName(location);
   let elCell = document.querySelector(`.${cellClass}`);
+  let elHint = document.querySelector('.hints');
 
+  elHint.style.backgroundColor = 'rgba(156, 199, 54,0)';
   elCell.classList.add(value);
   elCell.innerText = '';
 }
