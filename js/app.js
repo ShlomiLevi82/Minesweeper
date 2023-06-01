@@ -1,14 +1,19 @@
-'use strict';
+'use strict'; // בס"ד
+
 const _3LIVES = '🤔';
 const _2LIVES = '😨';
 const _1LIVES = '🥵';
 const _0LIVES = '🤯';
 const MINE = '💣';
+
 let gBoard;
 let gGame;
 let gMines;
 let gLives;
 let gHints;
+let gScore;
+let gBestScore;
+let gLastScore = NaN;
 let gTimer;
 let gTimerIntervalId;
 let isHintRequested = false;
@@ -18,6 +23,9 @@ let gLevel = {
 };
 
 function onInit() {
+  //DEMO: WIP...
+  gLastScore = localStorage.getItem('best score');
+  gBestScore = localStorage.getItem('score2');
   setSmiley();
   clearInterval(gTimer);
   gTimer = 0;
@@ -47,6 +55,9 @@ function onInit() {
   document.querySelector('.mines span').innerText = gMines;
   document.querySelector('.lives span').innerText = gLives;
   document.querySelector('.hints span').innerText = gHints;
+  document.querySelector('.best-score span').innerText = gBestScore;
+  document.querySelector('.last-score span').innerText = gLastScore;
+
   secondsLabel.innerHTML = '00';
   minutesLabel.innerHTML = '00';
 }
@@ -224,9 +235,9 @@ function checkGameOver() {
       document.querySelector('.modal').style.display = 'block';
       document.querySelector('.modal h2').innerText = '😎 Win 😎';
       clearInterval(gTimer);
+      bestScore();
     }
   }
-
   clearInterval(gTimerIntervalId);
 }
 
@@ -258,32 +269,6 @@ function onHint() {
   elHint.style.backgroundColor = 'rgb(156, 199, 54)';
   gHints--;
   document.querySelector('.hints span').innerText = gHints;
-  // NOT WORKING...(yet)
-}
-
-function hintDon(elHint) {
-  elHint.style.backgroundColor = 'rgba(156, 199, 54,0)';
-
-  //TODO:...
-}
-
-function setSmiley() {
-  document.querySelector('.reset').innerHTML = _3LIVES;
-
-  switch (gLives) {
-    case 3:
-      document.querySelector('.reset').innerHTML = _3LIVES;
-      break;
-    case 2:
-      document.querySelector('.reset').innerHTML = _2LIVES;
-      break;
-    case 1:
-      document.querySelector('.reset').innerHTML = _1LIVES;
-      break;
-    case 0:
-      document.querySelector('.reset').innerHTML = _0LIVES;
-      break;
-  }
 }
 
 function hint(board, rowIdx, colIdx) {
@@ -329,4 +314,53 @@ function hideCell(i, j, value = 'covered') {
   elHint.style.backgroundColor = 'rgba(156, 199, 54,0)';
   elCell.classList.add(value);
   elCell.innerText = '';
+}
+
+function setSmiley() {
+  document.querySelector('.reset').innerHTML = _3LIVES;
+
+  switch (gLives) {
+    case 3:
+      document.querySelector('.reset').innerHTML = _3LIVES;
+      break;
+    case 2:
+      document.querySelector('.reset').innerHTML = _2LIVES;
+      break;
+    case 1:
+      document.querySelector('.reset').innerHTML = _1LIVES;
+      break;
+    case 0:
+      document.querySelector('.reset').innerHTML = _0LIVES;
+      break;
+  }
+}
+
+let scoreKeyCount = 0;
+function bestScore() {
+  let timeSec = document.querySelector('#seconds').innerHTML;
+  let timeMin = document.querySelector('#minutes').innerText;
+  let time = timeMin + ':' + timeSec;
+
+  scoreKeyCount++;
+  console.log('timeSec', timeSec);
+  console.log('timeMin', timeMin);
+  console.log('time', time);
+  gScore = time;
+  // TODO: last score && best score save to local storage
+  // and shown on DOM
+  localStorage.setItem(`score${scoreKeyCount}`, time);
+  gLastScore = localStorage.getItem('best score');
+  console.log('gBestScore', gBestScore);
+  //not working...(yet)
+  for (let key in localStorage) {
+    if (!localStorage.hasOwnProperty(key)) {
+      continue; // skip keys like "setItem", "getItem" etc
+    }
+    gBestScore = `${key}: ${localStorage.getItem(key)}`;
+    var hScore = gLastScore > gBestScore ? gBestScore : gLastScore;
+
+    console.log('best score', gBestScore);
+    console.log('high score', hScore);
+  }
+  gBestScore = hScore;
 }
