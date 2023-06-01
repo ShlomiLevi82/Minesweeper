@@ -41,6 +41,14 @@ h1 {
 .lives span {
   color: red;
 }
+.hints {
+  /* background-color: rgb(156, 199, 54); */
+}
+
+.hints:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
 
 .reset {
   position: absolute;
@@ -84,6 +92,21 @@ h1 {
 }
 .cell.covered {
   background-color: lightgray;
+}
+
+.modal {
+  display: none;
+  border: solid 3px grey;
+  width: 400px;
+  height: 300px;
+  background-color: rgb(222, 226, 228);
+  color: black;
+  font-size: 32px;
+
+  position: absolute;
+  top: 400px;
+  left: calc(50% - 200px);
+  text-align: center;
 }
 
 footer {
